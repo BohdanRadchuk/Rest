@@ -8,11 +8,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController("/users")
+@RestController
+@RequestMapping(value = "/users")
 public class UserController {
 
     private List<User> users = generateUsers();
@@ -26,6 +26,7 @@ public class UserController {
         users.add(new User(2, "Sergiy", devices));
         devices.add(new Device(3, "table"));
         users.add(new User(3, "Ostap", devices));
+        System.out.println(users);
         return users;
     }
 
@@ -54,13 +55,13 @@ public class UserController {
         return new User(1, "asd", devices);
     }*/
 
-    @GetMapping
-    public List<User> getAllUsers() {
-        return this.users;
+    @RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<List<User>> getAllUsers() {
+        System.out.println("get");
+        return new ResponseEntity<List<User>> (this.users, HttpStatus.OK);
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<User> saveUser(@RequestBody @Valid User user) {
+    public ResponseEntity<User> saveUser(@RequestBody User user) {
         if (user == null) {
             return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
         }
