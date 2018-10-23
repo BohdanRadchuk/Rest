@@ -5,6 +5,9 @@ public class Device {
     private int id;
     private String type;
 
+    public Device() {
+    }
+
     public Device(int id, String type) {
         this.id = id;
         this.type = type;

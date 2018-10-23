@@ -8,6 +8,9 @@ public class User {
     private String name;
     private List<Device> devices;
 
+    public User() {
+    }
+
     public User(int id, String name, List<Device> devices) {
         this.id = id;
         this.name = name;
